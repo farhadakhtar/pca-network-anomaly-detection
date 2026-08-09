@@ -1,5 +1,3 @@
-Absolutely — here is the **clean, copy-paste-ready `README.md` Markdown version**. Everything below is standard Markdown, and the diagrams use GitHub-supported Mermaid syntax.
-
 # PCA-Based Network Anomaly Detection
 
 > **Can a low-dimensional representation of benign network behavior detect previously unseen attacks while remaining robust to distribution shifts?**
