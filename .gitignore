@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local configuration/secrets
+.env
+
+# Data and generated artifacts
+/data/raw/*
+!/data/raw/README.md
+/data/processed/*
+/results/runs/*
+/results/figures/*
+/results/tables/*
+/results/reports/*
+!results/.gitkeep
+!results/figures/.gitkeep
+!results/tables/.gitkeep
+!results/reports/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/

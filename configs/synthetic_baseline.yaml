@@ -1,0 +1,35 @@
+experiment_name: synthetic_pca_baseline
+random_seed: 42
+output_dir: results/runs
+
+dataset:
+  synthetic: true
+  n_benign: 1000
+  n_attack_per_type: 150
+  n_shift: 250
+
+split:
+  train_size: 0.60
+  calibration_size: 0.20
+  benign_test_size: 0.20
+  shuffle: true
+
+preprocessing:
+  max_missing_fraction: 0.5
+  correlation_threshold: 0.995
+
+pca:
+  n_components: 0.95
+  score: mse
+  whiten: false
+
+threshold:
+  method: percentile
+  percentile: 99.0
+
+baselines:
+  enabled:
+    - pca
+    - isolation_forest
+    - one_class_svm
+    - autoencoder

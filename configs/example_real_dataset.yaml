@@ -1,0 +1,35 @@
+experiment_name: real_dataset_pca_baseline
+random_seed: 42
+output_dir: results/runs
+
+dataset:
+  synthetic: false
+  path: data/raw/your_dataset.csv
+  label_column: Label
+  benign_label: BENIGN
+
+split:
+  train_size: 0.60
+  calibration_size: 0.20
+  benign_test_size: 0.20
+  shuffle: true
+  # For temporal experiments, set shuffle: false and temporal_column: your_timestamp_column
+
+preprocessing:
+  # Optional explicit feature list. If omitted, numeric non-leakage columns are inferred.
+  features: null
+  max_missing_fraction: 0.5
+  correlation_threshold: 0.995
+
+pca:
+  n_components: 0.95
+  score: mse
+  whiten: false
+
+threshold:
+  method: percentile
+  percentile: 99.0
+
+baselines:
+  enabled:
+    - pca
