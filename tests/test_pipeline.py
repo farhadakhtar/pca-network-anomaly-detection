@@ -34,7 +34,7 @@ def test_preprocessing_nan_inf_constant_and_leakage():
         "c": [1, 2, 3, np.inf, 5, 6],
         "attack_score": [9, 9, 9, 9, 9, 9],
     })
-    pre = FlowPreprocessor("Label").fit(df)
+    pre = FlowPreprocessor("Label", correlation_threshold=None).fit(df)
     assert "b" not in pre.features_
     assert "attack_score" not in pre.features_
     x = pre.transform(df)
