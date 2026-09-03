@@ -46,7 +46,7 @@ class AutoencoderWrapper:
 def make_baseline(name: str, seed: int = 42):
     name = name.lower()
     if name == "isolation_forest":
-        return SklearnAnomalyWrapper("isolation_forest", IsolationForest(n_estimators=100, contamination="auto", random_state=seed, n_jobs=-1))
+        return SklearnAnomalyWrapper("isolation_forest", IsolationForest(n_estimators=100, contamination="auto", random_state=seed, n_jobs=1))
     if name == "one_class_svm":
         return SklearnAnomalyWrapper("one_class_svm", OneClassSVM(kernel="rbf", gamma="scale", nu=0.05))
     if name == "autoencoder":
