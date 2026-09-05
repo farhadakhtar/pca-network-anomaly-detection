@@ -1,125 +1,75 @@
 """Path management system for PCA-Based Network Anomaly Detection.
 
-Resolves directories dynamically and avoids hardcoded paths.
-Provides a single source of truth for all project paths.
+Object-based path resolution with centralized directory management.
+All path resolution goes through the ``paths`` instance.
 """
 
-import os
 from pathlib import Path
-from typing import Final
 
-from .config import PROJECT_ROOT, RAW_DIR, PROCESSED_DIR
+from .config import config
 
 
-# ---------------------------------------------------------------------------
-# Directory Resolution
-# ---------------------------------------------------------------------------
+class Paths:
+    """Resolves and manages all project directories.
 
-def resolve_raw_data_dir() -> Path:
-    """Resolve the raw data directory, respecting environment overrides.
+    Provides a single source of truth for project paths with support for
+    environment variable overrides. All directories are created on demand.
 
-    Returns
+    Example
     -------
-    Path
-        Absolute path to the raw data directory.
+    >>> from src.paths import paths
+    >>> print(paths.raw_data)
+    D:\...\data\raw
+    >>> paths.ensure_directories()
     """
-    override = os.getenv("RAW_DATA_DIR")
-    if override:
-        return Path(override).resolve()
-    return RAW_DIR
+
+    def __init__(self):
+        self.base_dir: Path = Path(__file__).resolve().parent.parent
+        self.raw_data: Path = self.base_dir / "data" / "raw"
+        self.processed_data: Path = self.base_dir / "data" / "processed"
+        self.results: Path = self.base_dir / "results"
+        self.figures: Path = self.results / "figures"
+        self.tables: Path = self.results / "tables"
+        self.reports: Path = self.results / "reports"
+
+        # Apply environment overrides if set
+        self._apply_env_overrides()
+
+    def _apply_env_overrides(self):
+        """Apply environment variable overrides for path resolution.
+
+        Override environment variables:
+        - RAW_DATA_DIR: override raw data directory
+        - PROCESSED_DATA_DIR: override processed data directory
+        - RESULTS_DIR: override results directory
+        """
+        import os
+
+        raw_override = os.getenv("RAW_DATA_DIR")
+        if raw_override:
+            self.raw_data = Path(raw_override).resolve()
+
+        processed_override = os.getenv("PROCESSED_DATA_DIR")
+        if processed_override:
+            self.processed_data = Path(processed_override).resolve()
+
+        results_override = os.getenv("RESULTS_DIR")
+        if results_override:
+            self.results = Path(results_override).resolve()
+            # Re-derive child dirs
+            self.figures = self.results / "figures"
+            self.tables = self.results / "tables"
+            self.reports = self.results / "reports"
+
+    def ensure_directories(self):
+        """Create all required directories if they do not exist.
+
+        This is idempotent and safe to call multiple times.
+        """
+        for path in [self.raw_data, self.processed_data, self.results,
+                     self.figures, self.tables, self.reports]:
+            path.mkdir(parents=True, exist_ok=True)
 
 
-def resolve_processed_data_dir() -> Path:
-    """Resolve the processed data directory, respecting environment overrides.
-
-    Returns
-    -------
-    Path
-        Absolute path to the processed data directory.
-    """
-    override = os.getenv("PROCESSED_DATA_DIR")
-    if override:
-        return Path(override).resolve()
-    return PROCESSED_DIR
-
-
-def resolve_results_dir() -> Path:
-    """Resolve the results directory.
-
-    Returns
-    -------
-    Path
-        Absolute path to the results directory.
-    """
-    override = os.getenv("RESULTS_DIR")
-    if override:
-        return Path(override).resolve()
-    return PROJECT_ROOT / "results"
-
-
-def resolve_figures_dir() -> Path:
-    """Resolve the figures directory within results.
-
-    Returns
-    -------
-    Path
-        Absolute path to the figures directory.
-    """
-    return resolve_results_dir() / "figures"
-
-
-def resolve_tables_dir() -> Path:
-    """Resolve the tables directory within results.
-
-    Returns
-    -------
-    Path
-        Absolute path to the tables directory.
-    """
-    return resolve_results_dir() / "tables"
-
-
-def resolve_reports_dir() -> Path:
-    """Resolve the reports directory within results.
-
-    Returns
-    -------
-    Path
-        Absolute path to the reports directory.
-    """
-    return resolve_results_dir() / "reports"
-
-
-# ---------------------------------------------------------------------------
-# Dataset Filenames
-# ---------------------------------------------------------------------------
-
-DEFAULT_RAW_FILENAME: Final[str] = "network_traffic.csv"
-DEFAULT_PROCESSED_FILENAME: Final[str] = "network_traffic_processed.csv"
-
-
-# ---------------------------------------------------------------------------
-# Path Constants (lazy-loaded via functions above)
-# ---------------------------------------------------------------------------
-
-# Resolved at call time to allow environment overrides
-RAW_DATA_DIR: Final[Path] = resolve_raw_data_dir()
-PROCESSED_DATA_DIR: Final[Path] = resolve_processed_data_dir()
-RESULTS_DIR: Final[Path] = resolve_results_dir()
-FIGURES_DIR: Final[Path] = resolve_figures_dir()
-TABLES_DIR: Final[Path] = resolve_tables_dir()
-REPORTS_DIR: Final[Path] = resolve_reports_dir()
-
-
-# ---------------------------------------------------------------------------
-# Convenience: ensure directories exist
-# ---------------------------------------------------------------------------
-
-def ensure_directories() -> None:
-    """Create all required directories if they do not exist.
-
-    This is idempotent and safe to call multiple times.
-    """
-    for _dir in [RAW_DATA_DIR, PROCESSED_DATA_DIR, RESULTS_DIR,
-                 FIGURES_DIR, TABLES_DIR, REPORTS_DIR]:
-        _dir.mkdir(parents=True, exist_ok=True)
+# Module-level paths instance — the central point of access
+paths = Paths()

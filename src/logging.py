@@ -2,6 +2,14 @@
 
 Provides log levels (INFO, DEBUG, ERROR), file + console output,
 and structured log format configuration.
+
+Note
+----
+This module provides project-specific logging setup. It uses Python's
+standard ``logging`` module internally but does NOT export it, preventing
+namespace conflicts when imported as ``from src import logging``.
+
+__all__ = ["setup_logger", "setup_root_logger"]
 """
 
 import logging

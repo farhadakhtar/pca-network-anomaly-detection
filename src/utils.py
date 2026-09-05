@@ -2,15 +2,24 @@
 
 Reusable helpers, validation utilities, and basic data checks.
 NO business logic — pure utility functions only.
+
+Functions are organized into logical sections:
+- validation
+- statistics
+- reproducibility
+- misc
 """
+
+import os
+import random
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
-from typing import Any, Dict, List, Optional
 
 
 # ---------------------------------------------------------------------------
-# Data Validation
+# Validation
 # ---------------------------------------------------------------------------
 
 def validate_dataframe(df: pd.DataFrame,
@@ -106,7 +115,7 @@ def safe_numeric_conversion(series: pd.Series) -> pd.Series:
 
 
 # ---------------------------------------------------------------------------
-# Statistical Helpers
+# Statistics
 # ---------------------------------------------------------------------------
 
 def compute_percentile(data: np.ndarray, percentile: float) -> float:
@@ -160,7 +169,7 @@ def compute_std(data: np.ndarray) -> float:
 
 
 # ---------------------------------------------------------------------------
-# Seed Control for Reproducibility
+# Reproducibility
 # ---------------------------------------------------------------------------
 
 def set_seed(seed: int = None) -> None:
@@ -169,9 +178,8 @@ def set_seed(seed: int = None) -> None:
     Parameters
     ----------
     seed : int, optional
-        Seed value. If None, uses config RANDOM_SEED.
+        Seed value. If None, uses default RANDOM_SEED (42).
     """
-    import random
     seed = seed or 42
     random.seed(seed)
     np.random.seed(seed)
@@ -179,12 +187,11 @@ def set_seed(seed: int = None) -> None:
 
 def set_deterministic_mode() -> None:
     """Enable deterministic mode for consistent results."""
-    import os
-    os.environ["PYTHONHASHSEED"] = "0"  # Will be overridden by config value on import
+    os.environ["PYTHONHASHSEED"] = "0"
 
 
 # ---------------------------------------------------------------------------
-# Basic Helpers
+# Miscellaneous Helpers
 # ---------------------------------------------------------------------------
 
 def timeout_func(seconds: float):
