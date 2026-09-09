@@ -113,6 +113,11 @@ erDiagram
         float missing_rate
         float inf_rate
     }
+    FEATURE_VALUE {
+        string flow_id FK
+        string feature_name FK
+        float value
+    }
     PREPROCESSED_MATRIX {
         string matrix_id PK
         string dataset_id FK
@@ -234,7 +239,7 @@ Core flow attributes (subset; full list in `README.md` → Feature Engineering):
 Constraints:
 
 - `Label` never used to fit scaler/PCA.
-- Infinite / NaN rows flagged, not silently dropped (see DRD §3).
+- Infinite / NaN rows flagged, not silently dropped (see DRD Part A, §A3).
 
 ### E3 — `Feature`
 
@@ -331,7 +336,7 @@ Join of `AnomalyScore` + `Threshold` + ground truth. Basis for confusion matrix.
 
 ### E12 — `EvaluationReport`
 
-One row per (experiment × threshold × attack slice). Metrics: Precision, Recall, F1, FPR, AUROC, AUPRC (threshold-free metrics computed from raw scores; see EDR §5). Artefacts: `results/tables/metrics_*.csv`, `results/figures/roc_*.png`.
+One row per (experiment × threshold × attack slice). Metrics: Precision, Recall, F1, FPR, AUROC, AUPRC (threshold-free metrics computed from raw scores; see EDR §2.3). Artefacts: `results/tables/metrics_*.csv`, `results/figures/roc_*.png`.
 
 ### E13 — `Experiment`
 
