@@ -1115,22 +1115,22 @@ jupyter notebook
 
 ## Phase 1 — Data Understanding
 
-* [ ] Inspect dataset structure
-* [ ] Identify labels
-* [ ] Identify numerical features
-* [ ] Check missing values
-* [ ] Check infinite values
-* [ ] Study class imbalance
+* [x] Inspect dataset structure
+* [x] Identify labels
+* [x] Identify numerical features
+* [x] Check missing values
+* [x] Check infinite values
+* [x] Study class imbalance
 
 ---
 
 ## Phase 2 — Preprocessing
 
-* [ ] Clean invalid values
-* [ ] Remove unusable features
-* [ ] Standardize numerical data
-* [ ] Split benign training and testing data
-* [ ] Prepare attack evaluation data
+* [x] Clean invalid values
+* [x] Remove unusable features
+* [x] Standardize numerical data
+* [x] Split benign training and testing data
+* [x] Prepare attack evaluation data
 
 ---
 
@@ -1152,11 +1152,11 @@ $$
 
 Tasks:
 
-* [ ] Train PCA
-* [ ] Select number of components
-* [ ] Reconstruct samples
-* [ ] Calculate reconstruction error
-* [ ] Implement thresholding
+* [x] Train PCA
+* [x] Select number of components
+* [x] Reconstruct samples
+* [x] Calculate reconstruction error
+* [x] Implement thresholding
 
 ---
 
@@ -1164,16 +1164,16 @@ Tasks:
 
 Evaluate:
 
-* [ ] Normal traffic
-* [ ] Known attack traffic
-* [ ] Per-class detection rate
-* [ ] False positives
-* [ ] False negatives
-* [ ] Precision
-* [ ] Recall
-* [ ] F1 Score
-* [ ] AUROC
-* [ ] AUPRC
+* [x] Normal traffic
+* [x] Known attack traffic
+* [x] Per-class detection rate
+* [x] False positives
+* [x] False negatives
+* [x] Precision
+* [x] Recall
+* [x] F1 Score
+* [x] AUROC
+* [x] AUPRC
 
 ---
 
@@ -1181,10 +1181,10 @@ Evaluate:
 
 Run separate tests for:
 
-* [ ] DDoS
-* [ ] Port Scan
-* [ ] Botnet
-* [ ] Brute Force
+* [x] DDoS
+* [x] Port Scan
+* [x] Botnet
+* [x] Brute Force
 * [ ] Additional attack categories
 
 Ask:
@@ -1207,11 +1207,11 @@ Benign Environment B → Test
 
 Measure:
 
-* [ ] False positive rate
-* [ ] Recall
-* [ ] F1 score
-* [ ] AUROC
-* [ ] AUPRC
+* [x] False positive rate
+* [x] Recall
+* [x] F1 score
+* [x] AUROC
+* [x] AUPRC
 
 ---
 
@@ -1219,10 +1219,10 @@ Measure:
 
 Compare:
 
-* [ ] PCA
-* [ ] Isolation Forest
-* [ ] One-Class SVM
-* [ ] Autoencoder
+* [x] PCA
+* [x] Isolation Forest
+* [x] One-Class SVM
+* [x] Autoencoder
 
 ---
 
@@ -1407,18 +1407,18 @@ The goal is to understand:
 
 Current planned progression:
 
-* [ ] Dataset Selection
-* [ ] Exploratory Data Analysis
-* [ ] Data Cleaning
-* [ ] Feature Engineering
-* [ ] PCA Baseline
-* [ ] Reconstruction Error
-* [ ] Statistical Thresholding
-* [ ] Baseline Evaluation
-* [ ] Unseen Attack Testing
-* [ ] Distribution Shift Testing
-* [ ] Baseline Model Comparison
-* [ ] Failure Analysis
+* [x] Dataset Selection
+* [x] Exploratory Data Analysis
+* [x] Data Cleaning
+* [x] Feature Engineering
+* [x] PCA Baseline
+* [x] Reconstruction Error
+* [x] Statistical Thresholding
+* [x] Baseline Evaluation
+* [x] Unseen Attack Testing
+* [x] Distribution Shift Testing
+* [x] Baseline Model Comparison
+* [x] Failure Analysis
 * [ ] Research Improvement
 
 ---
