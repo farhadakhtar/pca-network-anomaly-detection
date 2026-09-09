@@ -7,11 +7,11 @@ IsolationForest,Botnet,0.024
 IsolationForest,DDoS,0.022
 IsolationForest,BruteForce,0.004
 IsolationForest,PortScan,0.0007
-OneClassSVM,Botnet,1.0
-OneClassSVM,DDoS,0.9993
-OneClassSVM,BruteForce,0.6253
-OneClassSVM,PortScan,0.15
-AutoencoderMLP,Botnet,1.0
-AutoencoderMLP,DDoS,1.0
-AutoencoderMLP,BruteForce,0.8127
-AutoencoderMLP,PortScan,0.62
+One-Class SVM,Botnet,1.0
+One-Class SVM,DDoS,0.9993
+One-Class SVM,BruteForce,0.6253
+One-Class SVM,PortScan,0.15
+Autoencoder,Botnet,1.0
+Autoencoder,DDoS,1.0
+Autoencoder,BruteForce,0.8127
+Autoencoder,PortScan,0.62
