@@ -7,15 +7,15 @@
 | held_out_attack   |   recall_at_P99 |   auroc |
 |:------------------|----------------:|--------:|
 | Botnet            |          1      |  1      |
-| DDoS              |          0.9987 |  0.9994 |
-| PortScan          |          0.058  |  0.8568 |
-| BruteForce        |          0.044  |  0.7994 |
+| DDoS              |          0.9987 |  0.9993 |
+| PortScan          |          0.5727 |  0.9845 |
+| BruteForce        |          0.0373 |  0.7912 |
 
 ## Figures
 - `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\recall_by_attack.png`
 
 ## What worked
-- median recall=0.53 across categories
+- median recall=0.79 across categories
 - worst-case held-out recall=0.04 bounds the open-world claim
 
 ## What failed
