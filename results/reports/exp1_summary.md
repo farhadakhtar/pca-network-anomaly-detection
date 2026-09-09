@@ -1,5 +1,5 @@
 # Exp1 — Basic anomaly detection
-- Train: synthetic_A benign-train (n=5600, seed=42) | Test: benign-test + mixed attacks (n=8400)
+- Train: synthetic_A benign-train (n=5600) | Test: benign-test + mixed attacks (n=8400)
 - Model: PCA k=19, variance=0.954 | Threshold: P99 = 23.90
 
 ## Metrics
@@ -14,21 +14,19 @@
 |  19 | mad        |      1.661  |      0.9295 |   0.8838 | 0.9061 | 0.1675 |  0.9437 |  0.9781 |             2400 |             6000 | 1998 |  402 |  697 | 5303 |
 
 ## Figures
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\score_hist_exp1.png`
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\exp1_roc.png`
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\exp1_pr.png`
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\variance_elbow.png`
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\threshold_frontier_exp1.png`
+- `score_hist_exp1.png`
+- `exp1_roc.png`
+- `exp1_pr.png`
+- `threshold_frontier_exp1.png`
 
 ## What worked
-- AUROC=0.944, AUPRC=0.978: scores separate
-- median attack SPE >> benign (see score_hist_exp1.png)
+- AUROC=0.944, AUPRC=0.978
 
 ## What failed
 - f
 
 ## Leakage check
-- scaler + PCA + threshold fit on benign-train only; labels used solely for scoring/slicing (EDR V-01) (train_benign n=5600)
+- scaler + PCA + threshold fit on benign-train only (EDR V-01)
 
 ## Reproduction
 - Notebook: `notebooks/03_pca_baseline.ipynb`
