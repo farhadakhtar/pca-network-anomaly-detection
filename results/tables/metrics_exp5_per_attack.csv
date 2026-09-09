@@ -1,0 +1,17 @@
+model,attack,recall
+PCA,Botnet,1.0
+PCA,DDoS,0.9987
+PCA,PortScan,0.058
+PCA,BruteForce,0.044
+IsolationForest,DDoS,0.0227
+IsolationForest,Botnet,0.022
+IsolationForest,BruteForce,0.0027
+IsolationForest,PortScan,0.002
+OneClassSVM,Botnet,1.0
+OneClassSVM,DDoS,1.0
+OneClassSVM,BruteForce,0.6207
+OneClassSVM,PortScan,0.0213
+AutoencoderMLP,Botnet,1.0
+AutoencoderMLP,DDoS,1.0
+AutoencoderMLP,BruteForce,0.8453
+AutoencoderMLP,PortScan,0.0833
