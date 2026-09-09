@@ -4,25 +4,24 @@
 
 ## Metrics
 
-| shift                            | model      |   FPR_source |   FPR_target |   dFPR | recall_src   |   recall_tgt |   AUROC_tgt |   AUPRC_tgt |
-|:---------------------------------|:-----------|-------------:|-------------:|-------:|:-------------|-------------:|------------:|------------:|
-| temporal (t0->t1 drift)          | M40        |       0.0142 |       0.0304 | 0.0163 |              |       0.6522 |      0.9089 |      0.9653 |
-| environment (A->B)               | M38-common |       0.0142 |       0.0835 | 0.0693 |              |       0.6525 |      0.8113 |      0.8493 |
-| cross-dataset (A->B, aligned 38) | M38-common |       0.0142 |       0.0835 | 0.0693 |              |       0.6525 |      0.8113 |      0.8493 |
+| shift                            | model      |   FPR_source |   FPR_target |   dFPR |   recall_tgt |   AUROC_tgt |   AUPRC_tgt |
+|:---------------------------------|:-----------|-------------:|-------------:|-------:|-------------:|------------:|------------:|
+| temporal (t0->t1 drift)          | M40        |       0.0142 |       0.0304 | 0.0163 |       0.6522 |      0.9089 |      0.9653 |
+| environment (A->B)               | M38-common |       0.0142 |       0.0835 | 0.0693 |       0.6525 |      0.8113 |      0.8493 |
+| cross-dataset (A->B, aligned 38) | M38-common |       0.0142 |       0.0835 | 0.0693 |       0.6525 |      0.8113 |      0.8493 |
 
 ## Figures
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\shift_overlay_temporal.png`
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\shift_overlay_env.png`
+- `shift_overlay_temporal.png`
+- `shift_overlay_env.png`
 
 ## What worked
-- temporal dFPR=+0.016, env dFPR=+0.069
-- attack recall retained at 0.65: geometry holds
+- attack recall retained while FPR inflates: geometry holds
 
 ## What failed
 - f
 
 ## Leakage check
-- scaler + PCA + threshold fit on benign-train only; labels used solely for scoring/slicing (EDR V-01); thresholds never fit on target (EDR V-02)
+- thresholds never fit on target (EDR V-02)
 
 ## Reproduction
 - Notebook: `notebooks/05_distribution_shift.ipynb`
