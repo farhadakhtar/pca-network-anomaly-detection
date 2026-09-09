@@ -259,16 +259,20 @@ def stage_baselines(mats, sdf: pd.DataFrame):
                                        early_stopping=True, n_iter_no_change=10, random_state=SEED),
     }
     train_sc, test_sc, times = {}, {}, {}
+    # PCA: frozen Exp1 test scores; refit on identical data for honest timing
+    # (same seed -> identical model) + benign-train scores for the P99 rule.
+    t0 = time.time()
+    _p = PCADetector().fit(Xtr)
+    t1 = time.time()
+    train_sc["PCA"] = _p.score(Xtr)[0]
+    test_sc["PCA"] = sdf["score"].to_numpy()  # test_benign then test_attack == Xte order
+    _p.score(Xte)
+    t2 = time.time()
+    times["PCA"] = (t1 - t0, t2 - t1)
     for name, mdl in cands.items():
-        t0 = time.time()
         if name == "PCA":
-            tr_s, te_s = sdf[sdf.split_role == "test_benign"]["score"].to_numpy(), sdf["score"].to_numpy()
-            # train scores for threshold: recompute cheaply via stored split is unavailable; use test_benign as proxy? NO (V-01).
-            # Proper: PCA train scores were used for P99 already; reuse Exp1 threshold value via scores distribution:
-            tr_s = np.quantile(te_s, 0.0) * 0 + tr_s  # keep benign-train-free? placeholder replaced below
-            train_sc[name], test_sc[name] = tr_s, te_s
-            times[name] = (0.0, 0.0)
             continue
+        t0 = time.time()
         fitX = Xtr[sub] if name == "OneClassSVM" else Xtr
         mdl.fit(fitX if name != "AutoencoderMLP" else Xtr, Xtr if name == "AutoencoderMLP" else None)
         t1 = time.time()
@@ -282,15 +286,6 @@ def stage_baselines(mats, sdf: pd.DataFrame):
         t2 = time.time()
         times[name] = (t1 - t0, t2 - t1)
     # PCA timing measured on refit (same data, same seed -> identical model)
-    t0 = time.time()
-    from src.pca_detector import PCADetector as _P
-    _p = _P().fit(Xtr)
-    t1 = time.time()
-    _p.score(Xte)
-    t2 = time.time()
-    times["PCA"] = (t1 - t0, t2 - t1)
-    # PCA train scores: score the actual train set (benign-train, V-01 clean)
-    train_sc["PCA"] = _p.score(Xtr)[0]
     rows, per_rows = [], []
     for name in cands:
         th = fit_threshold(train_sc[name], "p99")
