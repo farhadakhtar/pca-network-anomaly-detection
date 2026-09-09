@@ -1,0 +1,4 @@
+shift,model,FPR_source,FPR_target,dFPR,recall_src,recall_tgt,AUROC_tgt,AUPRC_tgt
+temporal (t0->t1 drift),M40,0.0158,0.0183,0.0025,,0.5252,0.9043,0.9606
+environment (A->B),M38-common,0.0154,0.0203,0.0048,,0.5337,0.8647,0.8719
+"cross-dataset (A->B, aligned 38)",M38-common,0.0154,0.0203,0.0048,,0.5337,0.8647,0.8719
