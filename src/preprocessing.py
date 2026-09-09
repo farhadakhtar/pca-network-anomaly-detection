@@ -53,14 +53,15 @@ class Preprocessor:
 
     def fit(self, df_train_benign: pd.DataFrame) -> "Preprocessor":
         assert CATEGORY_COL not in self.features, "label leakage in feature list (ERD C3)"
-        sub = df_train_benign[self.features]
+        sub = df_train_benign[self.features].replace([np.inf, -np.inf], np.nan)
         self.medians_ = sub.median()
         self.scaler_ = StandardScaler().fit(sub.fillna(self.medians_))
         return self
 
     def transform(self, df: pd.DataFrame) -> np.ndarray:
         assert self.medians_ is not None and self.scaler_ is not None, "fit first"
-        X = df[self.features].fillna(self.medians_).to_numpy(dtype=float)
+        sub = df[self.features].replace([np.inf, -np.inf], np.nan)
+        X = sub.fillna(self.medians_).to_numpy(dtype=float)
         return self.scaler_.transform(X)
 
     def save(self, path: str | Path) -> Path:
