@@ -1,5 +1,5 @@
 # Exp3 — Unseen-attack (leave-one-out) framing
-- Train: frozen Exp1 PCA (benign-train only) | Test: benign-test vs each attack separately
+- Train: frozen Exp1 PCA (benign-train only) | Test: per-category holdout reporting
 - Model: frozen PCA | Threshold: frozen P99
 
 ## Metrics
@@ -12,17 +12,16 @@
 | BruteForce        |          0.0373 |  0.7912 |
 
 ## Figures
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\recall_by_attack.png`
+- `recall_by_attack.png`
 
 ## What worked
-- median recall=0.79 across categories
 - worst-case held-out recall=0.04 bounds the open-world claim
 
 ## What failed
 - f
 
 ## Leakage check
-- scaler + PCA + threshold fit on benign-train only; labels used solely for scoring/slicing (EDR V-01)
+- PCA uses no labels at any stage (EDR V-01)
 
 ## Reproduction
 - Notebook: `notebooks/04_unseen_attack_evaluation.ipynb`

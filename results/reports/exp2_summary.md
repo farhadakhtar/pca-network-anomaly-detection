@@ -12,18 +12,16 @@
 | BruteForce |     6.5221 |       1.9071 |           0.0373 |  0.7912 |  0.646  |      1500 |      0.6222 |   0.0373 | 0.0704 | 0.0142 |             2400 |             1500 | 2366 |   34 | 1444 |   56 |
 
 ## Figures
-- `D:\Study\Sem 5\AIML lab\pca-network-anomaly-detection-clone\results\figures\recall_by_attack.png`
+- `recall_by_attack.png`
 
 ## What worked
-- median recall=0.79 across categories
 - easiest: Botnet (recall=1.00)
-- hardest: BruteForce (recall=0.04)
 
 ## What failed
 - f
 
 ## Leakage check
-- scaler + PCA + threshold fit on benign-train only; labels used solely for scoring/slicing (EDR V-01)
+- no refit on any attack slice (EDR V-01)
 
 ## Reproduction
 - Notebook: `notebooks/04_unseen_attack_evaluation.ipynb`
