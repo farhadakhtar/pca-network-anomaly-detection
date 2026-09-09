@@ -172,14 +172,21 @@ def _attack_overrides(base: dict, rng: np.random.Generator, kind: str) -> dict:
         a["flow_bytes_per_s"] = base["flow_bytes_per_s"] * 60.0
         a["flow_pkts_per_s"] = base["flow_pkts_per_s"] * 90.0
     elif kind == "PortScan":
-        a["tot_fwd_pkts"] = rng.integers(2, 5, n).astype(float)
-        a["tot_bwd_pkts"] = rng.integers(0, 2, n).astype(float)
-        a["avg_pkt_size"] = np.full(n, 44.0) * rng.lognormal(0.0, 0.08, n)
-        a["syn_flag_cnt"] = a["tot_fwd_pkts"]
+        a["tot_fwd_pkts"] = rng.integers(1, 3, n).astype(float)
+        a["tot_bwd_pkts"] = np.zeros(n)                       # no replies: pure probe
+        a["avg_pkt_size"] = np.full(n, 40.0) * rng.lognormal(0.0, 0.05, n)
+        a["syn_flag_cnt"] = a["tot_fwd_pkts"]                 # SYN-only
         a["ack_flag_cnt"] = np.zeros(n)
-        a["flow_duration"] = base["flow_duration"] * 0.05
+        a["fin_flag_cnt"] = np.zeros(n)
+        a["psh_flag_cnt"] = np.zeros(n)
+        a["rst_flag_cnt"] = rng.integers(0, 2, n).astype(float)
+        a["flow_duration"] = base["flow_duration"] * 0.01
+        a["flow_iat_mean"] = a["flow_duration"] / np.maximum(a["tot_fwd_pkts"], 1.0)
+        a["flow_iat_std"] = a["flow_iat_mean"] * 0.1
         a["totlen_fwd_pkts"] = a["tot_fwd_pkts"] * a["avg_pkt_size"]
-        a["totlen_bwd_pkts"] = a["tot_bwd_pkts"] * a["avg_pkt_size"]
+        a["totlen_bwd_pkts"] = np.zeros(n)
+        a["bwd_pkt_len_mean"] = np.zeros(n)
+        a["down_up_ratio"] = a["totlen_fwd_pkts"]             # /max(tot_b,1) recomputed below
     elif kind == "Botnet":
         a["flow_duration"] = base["flow_duration"] * 6.0
         a["flow_iat_std"] = base["flow_iat_std"] * 0.08          # metronomic

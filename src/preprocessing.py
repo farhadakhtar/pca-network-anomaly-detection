@@ -60,9 +60,8 @@ class Preprocessor:
 
     def transform(self, df: pd.DataFrame) -> np.ndarray:
         assert self.medians_ is not None and self.scaler_ is not None, "fit first"
-        sub = df[self.features].replace([np.inf, -np.inf], np.nan)
-        X = sub.fillna(self.medians_).to_numpy(dtype=float)
-        return self.scaler_.transform(X)
+        filled = df[self.features].replace([np.inf, -np.inf], np.nan).fillna(self.medians_)
+        return np.asarray(self.scaler_.transform(filled), dtype=float)
 
     def save(self, path: str | Path) -> Path:
         path = Path(path)
