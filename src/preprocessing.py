@@ -54,6 +54,7 @@ class Preprocessor:
     def fit(self, df_train_benign: pd.DataFrame) -> "Preprocessor":
         assert CATEGORY_COL not in self.features, "label leakage in feature list (ERD C3)"
         sub = df_train_benign[self.features]
+        self.medians_ = sub.median()
         self.scaler_ = StandardScaler().fit(sub.fillna(self.medians_))
         return self
 

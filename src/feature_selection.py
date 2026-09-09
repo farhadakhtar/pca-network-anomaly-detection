@@ -1,6 +1,7 @@
 """Feature selection + cross-dataset alignment (ERD E3, DRD D-05..D-09)."""
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 from src import CATEGORY_COL, FLOW_ID_COL, LABEL_COL
