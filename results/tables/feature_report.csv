@@ -1,0 +1,45 @@
+feature,dtype,missing_rate,inf_rate,nunique,action,reason
+flow_duration,float64,0.0051,0.005,13860.0,keep,ok
+tot_fwd_pkts,float64,0.0044,0.0046,12393.0,keep,ok
+tot_bwd_pkts,float64,0.0044,0.0042,12392.0,keep,ok
+totlen_fwd_pkts,float64,0.0052,0.005,13858.0,keep,ok
+totlen_bwd_pkts,float64,0.0046,0.0049,13107.0,keep,ok
+fwd_pkt_len_mean,float64,0.0047,0.0056,13857.0,keep,ok
+bwd_pkt_len_mean,float64,0.0046,0.0044,13875.0,keep,ok
+flow_bytes_per_s,float64,0.0051,0.0047,13864.0,keep,ok
+flow_pkts_per_s,float64,0.0054,0.0051,13853.0,keep,ok
+flow_iat_mean,float64,0.0039,0.005,13876.0,keep,ok
+flow_iat_std,float64,0.0051,0.0056,13851.0,keep,ok
+fwd_iat_mean,float64,0.0051,0.0047,13864.0,keep,ok
+bwd_iat_mean,float64,0.0054,0.0051,13855.0,keep,ok
+avg_pkt_size,float64,0.0051,0.0051,13858.0,keep,ok
+pkt_len_var,float64,0.005,0.0064,13841.0,keep,ok
+pkt_len_std,float64,0.0052,0.0038,13875.0,keep,ok
+fwd_seg_size_avg,float64,0.005,0.0052,13858.0,keep,ok
+bwd_seg_size_avg,float64,0.0051,0.0041,13872.0,keep,ok
+syn_flag_cnt,float64,0.0057,0.0049,1494.0,keep,ok
+ack_flag_cnt,float64,0.0054,0.0039,2061.0,keep,ok
+fin_flag_cnt,float64,0.006,0.0039,7.0,keep,ok
+psh_flag_cnt,float64,0.0041,0.0049,1503.0,keep,ok
+rst_flag_cnt,float64,0.0055,0.0044,5.0,keep,ok
+urg_flag_cnt,float64,0.0059,0.0043,6.0,keep,ok
+fwd_bwd_ratio,float64,0.0046,0.0049,12383.0,keep,ok
+down_up_ratio,float64,0.0034,0.0047,13887.0,keep,ok
+active_mean,float64,0.0048,0.0045,13871.0,keep,ok
+idle_mean,float64,0.0058,0.005,13850.0,keep,ok
+idle_max,float64,0.0055,0.0045,13861.0,keep,ok
+init_win_fwd,float64,0.0047,0.0061,13850.0,keep,ok
+init_win_bwd,float64,0.0049,0.0045,8085.0,keep,ok
+subflow_fwd_pkts,float64,0.0056,0.0046,13858.0,keep,ok
+subflow_bwd_pkts,float64,0.0046,0.0056,13857.0,keep,ok
+fwd_header_len,float64,0.0047,0.0044,13795.0,keep,ok
+bwd_header_len,float64,0.0046,0.0051,13729.0,keep,ok
+min_pkt_len,float64,0.0049,0.0036,12772.0,keep,ok
+max_pkt_len,float64,0.0049,0.0056,13853.0,keep,ok
+pkt_len_median,float64,0.0059,0.0048,13852.0,keep,ok
+bytes_per_pkt,float64,0.0059,0.0044,13858.0,keep,ok
+burst_rate,float64,0.005,0.0054,13855.0,keep,ok
+Label,object,,,,drop,excluded/leaky identifier
+AttackCategory,object,,,,drop,excluded/leaky identifier
+flow_id,object,,,,drop,excluded/leaky identifier
+dataset_id,object,,,,drop,excluded/leaky identifier

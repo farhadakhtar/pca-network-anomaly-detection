@@ -1,0 +1,6 @@
+Label,canonical,count
+BENIGN,BENIGN,8000
+Botnet,Botnet,1500
+BruteForce,BruteForce,1500
+DDoS,DDoS,1500
+PortScan,PortScan,1500
