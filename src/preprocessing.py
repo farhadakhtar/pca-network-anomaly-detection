@@ -52,10 +52,8 @@ class Preprocessor:
         self.scaler_: StandardScaler | None = None
 
     def fit(self, df_train_benign: pd.DataFrame) -> "Preprocessor":
+        assert CATEGORY_COL not in self.features, "label leakage in feature list (ERD C3)"
         sub = df_train_benign[self.features]
-        if (sub[CATEGORY_COL] if CATEGORY_COL in df_train_benign else None) is not None:
-            pass  # features never contain label cols (ERD C3, asserted by tests)
-        self.medians_ = sub.median()
         self.scaler_ = StandardScaler().fit(sub.fillna(self.medians_))
         return self
 

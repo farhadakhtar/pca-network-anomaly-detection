@@ -26,9 +26,9 @@ def select_features(df: pd.DataFrame,
         elif not pd.api.types.is_numeric_dtype(s):
             rec.update(action="drop", reason="non-numeric (v1)")
         else:
-            miss = float(s.isna().mean())
-            with pd.option_context("mode.use_inf_as_na", True):
-                inf = float(s.isin([float("inf"), float("-inf")]).mean())
+            num = pd.to_numeric(s, errors="coerce")
+            miss = float(num.isna().mean())
+            inf = float(np.isinf(num.to_numpy(dtype=float, na_value=np.nan)).mean())
             rec.update(missing_rate=round(miss, 4), inf_rate=round(inf, 4),
                        nunique=int(s.nunique(dropna=True)))
             if s.nunique(dropna=True) <= 1:
