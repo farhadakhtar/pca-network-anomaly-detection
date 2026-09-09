@@ -252,16 +252,22 @@ def generate_shift_dataset(n_benign: int = 4000, n_per_attack: int = 800,
     statistics, while attacks look the same -> FPR inflates, recall holds."""
     rng = np.random.default_rng(seed)
     b = _base_benign(rng, n_benign)
-    b["flow_duration"] = b["flow_duration"] * 1.8
-    b["flow_bytes_per_s"] = b["flow_bytes_per_s"] * 1.5
-    b["tot_fwd_pkts"] = b["tot_fwd_pkts"] * 1.4
-    b["avg_pkt_size"] = b["avg_pkt_size"] * 1.25
-    b["flow_iat_mean"] = b["flow_iat_mean"] * 0.7
-    b["active_mean"] = b["active_mean"] * 1.6
-    b["init_win_fwd"] = np.clip(b["init_win_fwd"] * 1.1, 1024, 65535)
-    b["fwd_header_len"] = b["fwd_header_len"] * 1.3
+    # Evening-profile drift, tuned (probe) to FPR ~0.12 at frozen P99 while
+    # attack recall holds: off-manifold in flags/windows + heavier volumes.
+    b["flow_duration"] = b["flow_duration"] * 3.5
+    b["flow_bytes_per_s"] = b["flow_bytes_per_s"] * 3.0
+    b["tot_fwd_pkts"] = b["tot_fwd_pkts"] * 2.5
+    b["avg_pkt_size"] = b["avg_pkt_size"] * 2.0
+    b["flow_iat_mean"] = b["flow_iat_mean"] * 0.35
+    b["active_mean"] = b["active_mean"] * 2.5
+    b["idle_mean"] = b["idle_mean"] * 2.5
+    b["syn_flag_cnt"] = b["syn_flag_cnt"] * 5.0 + 1.0
+    b["ack_flag_cnt"] = b["ack_flag_cnt"] * 4.0
+    b["init_win_fwd"] = np.clip(b["init_win_fwd"] * 1.4, 1024, 65535)
+    b["fwd_header_len"] = b["fwd_header_len"] * 2.0
+    b["burst_rate"] = b["burst_rate"] * 2.0
     for k, v in b.items():  # noisier evening network
-        b[k] = v * rng.lognormal(0.0, 0.08, n_benign)
+        b[k] = v * rng.lognormal(0.0, 0.10, n_benign)
     parts = [(BENIGN_LABEL, b)]
     for kind in ["DDoS", "PortScan", "Botnet", "BruteForce"]:
         parts.append((kind, _attack_overrides(_base_benign(rng, n_per_attack), rng, kind)))

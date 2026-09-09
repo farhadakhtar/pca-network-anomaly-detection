@@ -184,10 +184,11 @@ def _temporal_t1(test_benign: pd.DataFrame, seed: int = 11) -> pd.DataFrame:
     """Evening drift on the frozen test-benign set (Exp4a)."""
     rng = np.random.default_rng(seed)
     t1 = test_benign.copy()
-    for c, f in (("flow_duration", 1.3), ("flow_bytes_per_s", 1.2),
-                 ("tot_fwd_pkts", 1.15), ("avg_pkt_size", 1.1)):
+    for c, f in (("flow_duration", 2.0), ("flow_bytes_per_s", 1.6),
+                 ("tot_fwd_pkts", 1.4), ("avg_pkt_size", 1.25),
+                 ("syn_flag_cnt", 2.0), ("active_mean", 1.5)):
         if c in t1:
-            t1[c] = t1[c] * f * rng.lognormal(0.0, 0.05, len(t1))
+            t1[c] = t1[c] * f * rng.lognormal(0.0, 0.08, len(t1))
     return t1
 
 
